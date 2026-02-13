@@ -29,6 +29,7 @@ SRC_FILES			=	main								\
     					imgui/imgui_widgets 				\
     					imgui/backends/imgui_impl_sdl2 		\
     					imgui/backends/imgui_impl_opengl3 	\
+						classes/video						\
 
 SRC 				= 	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_FILES)))
 OBJ 				= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
