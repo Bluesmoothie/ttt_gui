@@ -10,12 +10,18 @@
 #else
 # include <SDL2/SDL_opengl.h>
 #endif
+#include <string>
+
+#include "classes/ttt.hpp"
 
 #define TTT_WINDOW_TITLE	"TicTacToe"
 #define TTT_WINDOW_WIDTH	200
 #define TTT_WINDOW_HEIGH	250
 
 const ImVec4	clear_color = ImVec4(0.67f, 0.83f, 0.02f, 1.00f);
+
+const ImVec4 	color_red = ImVec4(0.9f, 0.2f, 0.2f, 1.0f);
+const ImVec4 	color_blue = ImVec4(0.2f, 0.6f, 0.9f, 1.0f);
 
 class	Video {
 
@@ -27,6 +33,8 @@ private:
 
 	bool			initialized;
 	bool			done;
+
+	ttt*			game;
 
 public:
 

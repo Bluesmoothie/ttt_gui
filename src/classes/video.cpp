@@ -1,6 +1,6 @@
 #include "classes/video.hpp"
 
-Video::Video(void) : initialized(false) {}
+Video::Video(void) : initialized(false), game(nullptr) {}
 
 Video::~Video(void) {
 
@@ -57,7 +57,7 @@ int	Video::init(void) {
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     float main_scale = ImGui_ImplSDL2_GetContentScaleForDisplay(0);
-    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
+    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE);
     this->window = SDL_CreateWindow(TTT_WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)(TTT_WINDOW_WIDTH * main_scale), (int)(TTT_WINDOW_HEIGH * main_scale), window_flags);
     if (this->window == nullptr)
     {
@@ -108,11 +108,15 @@ int	Video::init(void) {
     //io.Fonts->AddFontDefaultVector();
     //io.Fonts->AddFontDefaultBitmap();
     //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf");
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf");
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf");
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf");
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf");
     //IM_ASSERT(font != nullptr);
+
+	io.Fonts->AddFontFromFileTTF("fonts/NotoSans-Black.ttf");
+	ImFontConfig config;
+	config.MergeMode = true;
+    io.Fonts->AddFontFromFileTTF("fonts/NotoEmoji-Regular.ttf", 24.0f, &config);
 
 	return 0;
 }
@@ -170,11 +174,32 @@ void	Video::render(void) {
 }
 
 void	Video::draw(void) {
+	if (this->game == nullptr)
+		this->game = new ttt;
+
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(TTT_WINDOW_WIDTH, TTT_WINDOW_HEIGH), ImGuiCond_FirstUseEver);
 
 	if (ImGui::Begin("Test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar)) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				const int	currentCase = this->game->getCase(i, j);
+				std::string	label("");
+				if (currentCase == 0)
+					label = "❌";
+				else if (currentCase == 1)
+					label = "⭕";
+				label += "##" + std::to_string(i) + ',' + std::to_string(j);
+				currentCase == 0 ? ImGui::PushStyleColor(ImGuiCol_Text, color_red) : ImGui::PushStyleColor(ImGuiCol_Text, color_blue);
+				if (ImGui::Button(label.c_str(), ImVec2(50, 50)))
+					this->game->click(i, j);
+				ImGui::PopStyleColor(1);
+				if (j < 2)
+					ImGui::SameLine();
+			}
+		}
 		
+		ImGui::Text(this->game->getNextPlayer() == false ? "Player1" : "Player2");
 	}
 	ImGui::End();
 }
