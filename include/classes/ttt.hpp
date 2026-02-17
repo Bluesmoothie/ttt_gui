@@ -11,13 +11,19 @@ private:
 	bool	finished;
 	bool	winner;		//false Player1, true Player2
 
+	void	checkGame(void);
+	void	gameFinished(const int& winner);
+
 public:
 	ttt(void);
 	~ttt(void);
 
-	bool	getNextPlayer(void) const;
-	void	click(const int& i, const int& j);
-	int		getCase(const int& i, const int& j) const;
+	const bool&		getNextPlayer(void) const;
+	int				getCase(const int& i, const int& j) const;
+	const bool&		getFinished(void) const;
+	const bool&		getWinner(void) const;
+	
+	void			click(const int& i, const int& j);
 
 };
 

@@ -199,7 +199,10 @@ void	Video::draw(void) {
 			}
 		}
 		
-		ImGui::Text(this->game->getNextPlayer() == false ? "Player1" : "Player2");
+		if(this->game->getFinished())
+			ImGui::Text(this->game->getWinner() == false ? "Player1 WIN !" : "Player2 WIN !");
+		else
+			ImGui::Text(this->game->getNextPlayer() == false ? "Player1" : "Player2");
 	}
 	ImGui::End();
 }
