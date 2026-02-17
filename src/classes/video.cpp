@@ -113,10 +113,10 @@ int	Video::init(void) {
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf");
     //IM_ASSERT(font != nullptr);
 
-	io.Fonts->AddFontFromFileTTF("fonts/NotoSans-Black.ttf");
+	io.Fonts->AddFontFromFileTTF("fonts/NotoSans-Black.ttf", 36.0f);
 	ImFontConfig config;
 	config.MergeMode = true;
-    io.Fonts->AddFontFromFileTTF("fonts/NotoEmoji-Regular.ttf", 24.0f, &config);
+    io.Fonts->AddFontFromFileTTF("fonts/NotoEmoji-Regular.ttf", 26.0f, &config);
 
 	return 0;
 }
@@ -199,8 +199,13 @@ void	Video::draw(void) {
 			}
 		}
 		
-		if(this->game->getFinished())
+		if(this->game->getFinished()) {
 			ImGui::Text(this->game->getWinner() == false ? "Player1 WIN !" : "Player2 WIN !");
+			if (ImGui::Button("Restart")) {
+				delete this->game;
+				this->game = new ttt;
+			}
+		}
 		else
 			ImGui::Text(this->game->getNextPlayer() == false ? "Player1" : "Player2");
 	}
