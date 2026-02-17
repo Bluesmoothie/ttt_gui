@@ -11,7 +11,11 @@
 # include <SDL2/SDL_opengl.h>
 #endif
 
-const ImVec4	clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+#define TTT_WINDOW_TITLE	"TicTacToe"
+#define TTT_WINDOW_WIDTH	200
+#define TTT_WINDOW_HEIGH	250
+
+const ImVec4	clear_color = ImVec4(0.67f, 0.83f, 0.02f, 1.00f);
 
 class	Video {
 
