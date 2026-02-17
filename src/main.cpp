@@ -4,8 +4,12 @@ int main(int, char**)
 {
 	Video	video;
 
-    video.init();
-	video.openDemo();
+    if (video.init()) {
+		return 1;
+	}
+
+	video.loop();
+	// video.openDemo();
 
     return 0;
 }

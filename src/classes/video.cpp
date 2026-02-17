@@ -128,6 +128,52 @@ void	Video::deinit(void) {
 	this->initialized = false;
 }
 
+void	Video::loop(void) {
+	this->done = false;
+
+	while (!this->done) {
+		this->treatEvents();
+
+		if (SDL_GetWindowFlags(this->window) & SDL_WINDOW_MINIMIZED) {
+            SDL_Delay(10);
+            continue;
+        }
+
+		ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplSDL2_NewFrame();
+        ImGui::NewFrame();
+
+		this->draw();
+
+		this->render();
+	}
+}
+
+void	Video::treatEvents(void) {
+	SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        ImGui_ImplSDL2_ProcessEvent(&event);
+        if (event.type == SDL_QUIT)
+            this->done = true;
+        if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(this->window))
+            this->done = true;
+    }
+}
+
+void	Video::render(void) {
+	ImGui::Render();
+    glViewport(0, 0, (int)this->io.DisplaySize.x, (int)this->io.DisplaySize.y);
+    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    SDL_GL_SwapWindow(this->window);
+}
+
+void	Video::draw(void) {
+	ImGui::Begin("Test");
+	ImGui::End();
+}
+
 bool	Video::openDemo(void) {
 	// Our state
     bool show_demo_window = true;

@@ -11,6 +11,8 @@
 # include <SDL2/SDL_opengl.h>
 #endif
 
+const ImVec4	clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 class	Video {
 
 private:
@@ -20,6 +22,7 @@ private:
 	SDL_GLContext 	gl_context;
 
 	bool			initialized;
+	bool			done;
 
 public:
 
@@ -28,6 +31,11 @@ public:
 
 	int		init(void);
 	void	deinit(void);
+
+	void	loop(void);
+	void	treatEvents(void);
+	void	draw(void);
+	void	render(void);
 
 	bool	openDemo(void);
 
