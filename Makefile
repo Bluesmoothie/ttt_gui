@@ -46,6 +46,7 @@ $(BUILD_DIR)		:
 					mkdir -p $(BUILD_DIR)
 					mkdir -p $(BUILD_DIR)/imgui
 					mkdir -p $(BUILD_DIR)/imgui/backends
+					mkdir -p $(BUILD_DIR)/classes
 
 $(BUILD_DIR)%.o		: 	$(SRC_DIR)%.cpp
 					$(CXX) $(CXXFLAGS) -c $< -o $@

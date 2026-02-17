@@ -16,18 +16,19 @@ class	Video {
 private:
 
 	SDL_Window* 	window;
-	ImGuiIO* 		io;
+	ImGuiIO 		io;
 	SDL_GLContext 	gl_context;
+
+	bool			initialized;
 
 public:
 
 	Video(void);
 	~Video(void);
 
-	int	init(void);
+	int		init(void);
+	void	deinit(void);
 
-	const SDL_Window&		getWindow(void) const;
-	const ImGuiIO&			getIo(void) const;
-	const SDL_GLContext&	getGlContext(void) const;
+	bool	openDemo(void);
 
 };
