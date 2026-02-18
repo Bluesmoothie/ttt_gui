@@ -118,6 +118,8 @@ int	Video::init(void) {
 	config.MergeMode = true;
     io.Fonts->AddFontFromFileTTF("fonts/NotoEmoji-Regular.ttf", 26.0f, &config);
 
+	this->viewport = ImGui::GetMainViewport();
+
 	return 0;
 }
 
@@ -177,10 +179,10 @@ void	Video::draw(void) {
 	if (this->game == nullptr)
 		this->game = new ttt;
 
-	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowSize(ImVec2(TTT_WINDOW_WIDTH, TTT_WINDOW_HEIGH), ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowPos(viewport->WorkPos, ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowSize(viewport->WorkSize, ImGuiCond_FirstUseEver);
 
-	if (ImGui::Begin("Test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar)) {
+	if (ImGui::Begin("Test", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar)) {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				const int	currentCase = this->game->getCase(i, j);

@@ -30,6 +30,7 @@ private:
 	SDL_Window* 	window;
 	ImGuiIO 		io;
 	SDL_GLContext 	gl_context;
+	ImGuiViewport*	viewport;
 
 	bool			initialized;
 	bool			done;
