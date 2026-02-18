@@ -200,7 +200,7 @@ void	Video::draw(void) {
 		}
 		
 		if(this->game->getFinished()) {
-			ImGui::Text(this->game->getWinner() == false ? "Player1 WIN !" : "Player2 WIN !");
+			ImGui::Text(this->game->getWinner() == 0 ? "Player1 WIN !" : this->game->getWinner() == 1 ? "Player2 WIN !" : "Draw !");
 			if (ImGui::Button("Restart")) {
 				delete this->game;
 				this->game = new ttt;

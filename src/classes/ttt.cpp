@@ -14,7 +14,7 @@ void	ttt::checkGame(void) {
 	}
 	for (int i = 0; i < 3; i++) {
 		if (this->game[0][i] != TTT_GAME_EMPTY && this->game[0][i] == this->game[1][i] && this->game[0][i] == this->game[2][i]) {
-			this->gameFinished(this->game[i][0]);
+			this->gameFinished(this->game[0][i]);
 			return;
 		}
 	}
@@ -23,9 +23,17 @@ void	ttt::checkGame(void) {
 		return;
 	}
 	if (this->game[0][2] != TTT_GAME_EMPTY && this->game[0][2] == this->game[1][1] && this->game[0][2] == this->game[2][0]) {
-		this->gameFinished(this->game[0][0]);
+		this->gameFinished(this->game[0][2]);
 		return;
 	}
+
+	for (int i = 0; i < 3; i++) { 
+		for (int j = 0; j < 3; j++) {
+			if (this->game[i][j] == TTT_GAME_EMPTY)
+				return;
+		}
+	}
+	this->gameFinished(TTT_GAME_EMPTY);
 }
 
 void	ttt::gameFinished(const int& winner) {
@@ -45,7 +53,7 @@ const bool&	ttt::getFinished(void) const {
 	return this->finished;
 }
 
-const bool&	ttt::getWinner(void) const {
+const int&	ttt::getWinner(void) const {
 	return this->winner;
 }
 
