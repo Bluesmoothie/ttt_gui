@@ -57,7 +57,7 @@ int	Video::init(void) {
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     float main_scale = ImGui_ImplSDL2_GetContentScaleForDisplay(0);
-    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE);
+    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
     this->window = SDL_CreateWindow(TTT_WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)(TTT_WINDOW_WIDTH * main_scale), (int)(TTT_WINDOW_HEIGH * main_scale), window_flags);
     if (this->window == nullptr)
     {
