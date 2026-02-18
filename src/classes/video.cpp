@@ -183,6 +183,9 @@ void	Video::draw(void) {
 	ImGui::SetNextWindowSize(viewport->WorkSize, ImGuiCond_FirstUseEver);
 
 	if (ImGui::Begin("Test", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar)) {
+		ImGui::PushStyleColor(ImGuiCol_Button, color_white);
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, color_light_grey);
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, color_medium_grey);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				const int	currentCase = this->game->getCase(i, j);
@@ -200,6 +203,7 @@ void	Video::draw(void) {
 					ImGui::SameLine();
 			}
 		}
+		ImGui::PopStyleColor(3);
 		
 		if(this->game->getFinished()) {
 			ImGui::Text(this->game->getWinner() == 0 ? "Player1 WIN !" : this->game->getWinner() == 1 ? "Player2 WIN !" : "Draw !");
